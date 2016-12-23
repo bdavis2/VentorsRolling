@@ -21,7 +21,7 @@
     function showBest(){
         if(bestStats.length > 1){
             for(i = 0; i < descriptionText.length; i++){
-            var roll = Math.floor(Math.random() * (ranges[i][1] - ranges[i][0]) + ranges[i][0]);
+            var roll = Math.floor(bestStats[i] * (ranges[i][1] - ranges[i][0]) + ranges[i][0]);
             //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
             
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
