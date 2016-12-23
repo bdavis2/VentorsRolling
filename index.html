@@ -21,7 +21,7 @@
     function showBest(){
         if(bestStats.length > 1){
             for(i = 0; i < descriptionText.length; i++){
-            var roll = Math.floor(bestStats[i] * (ranges[i][1] - ranges[i][0]) + ranges[i][0]);
+            var roll = Math.floor(bestStats[i] * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
             //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
             
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
@@ -38,7 +38,7 @@
         document.getElementById("divineCount").innerHTML= count + " Divine Orbs used.";
         for(i = 0; i < descriptionText.length; i++){
             //var roll = Math.floor((Math.random() * (ranges[i][1] + 1 - ranges[i][0]))  + ranges[i][0]);
-            var roll = Math.floor(Math.random() * (ranges[i][1] - ranges[i][0]) + ranges[i][0]);
+            var roll = Math.floor(Math.random() * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
             result.push((roll - ranges[i][0]) / (ranges[i][1] - ranges[i][0]));
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
         }
@@ -145,7 +145,7 @@
         <div class = "results" id="roll-result">Luck</div>
         <div class = "results" id="runningTen"> Exile </div>
         </div>
-        <button type="button" class="roll" onclick="rollStats()">Roll</button>
+        <button type="button" class="roll" onclick="rollStats()">Divine</button>
         <button type="button" class="showBest" onclick="showBest()">Show Best</button>
         </div>
         </div>
