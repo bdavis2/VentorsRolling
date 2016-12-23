@@ -21,7 +21,7 @@
     function showBest(){
         if(bestStats.length > 1){
             for(i = 0; i < descriptionText.length; i++){
-            var roll = Math.floor(bestStats[i] * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
+            var roll = bestStats[i];
             //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
             
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
@@ -39,7 +39,7 @@
         for(i = 0; i < descriptionText.length; i++){
             //var roll = Math.floor((Math.random() * (ranges[i][1] + 1 - ranges[i][0]))  + ranges[i][0]);
             var roll = Math.floor(Math.random() * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
-            result.push((roll - ranges[i][0]) / (ranges[i][1] - ranges[i][0]));
+            result.push(roll);
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
         }
         var total = 0;
@@ -57,7 +57,7 @@
         
         
         //Overall Data
-        resultResults.unshift(Math.round(((total / textID.length)* 100)));
+        resultResults.unshift(Math.floor(((total / textID.length)* 100)));
         if(resultResults.length > 3){
             resultResults.pop();
         }
