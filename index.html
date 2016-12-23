@@ -9,10 +9,27 @@
     
     var ranges = [[6,15], [0,60], [-10, 10], [-40, 40], [-25, 50],[-25, 50], [-25, 50] ];
     
+    var best = 0;
+    var foundAt = 0;
+    var bestStats = [];
+    
     var count = 0;
     var resultResults = [];
     
     var textID = ["implicitRoll", "lifeRoll","quantityRoll","rarityRoll", "fireRoll", "coldRoll", "lightRoll"];
+    
+    function showBest(){
+        if(bestStats.length > 1){
+            for(i = 0; i < descriptionText.length; i++){
+            var roll = Math.floor((bestStats[i] * (ranges[i][1] - ranges[i][0])) + 1 + ranges[i][0]);
+            
+            document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+            }
+            document.getElementById("divineCount").innerHTML= "Rolled at " + foundAt + " Divine Orbs.";
+            document.getElementById("roll-result").innerHTML = best  + "% maxed.";
+            document.getElementById("runningTen").innerHTML = "";
+        }
+    }
     
     function rollStats(){
         count++;
@@ -28,8 +45,17 @@
         for(j = 0; j < result.length; j++){
             total += result[j];
         }
-        document.getElementById("roll-result").innerHTML = Math.round(((total / textID.length)* 100)) + "% maxed.";
+        var rollResult = Math.round(((total / textID.length)* 100));
+        if(rollResult > best){
+            best = rollResult;
+            bestStats = result;
+            foundAt = count;
+            
+        }
+        document.getElementById("roll-result").innerHTML = rollResult  + "% maxed.";
         
+        
+        //Overall Data
         resultResults.unshift(Math.round(((total / textID.length)* 100)));
         if(resultResults.length > 3){
             resultResults.pop();
@@ -64,6 +90,8 @@
     <body>
 
     <br /><br /><br /><br />
+        <div class = "container">
+        <div class = "item">
         <table align="center" class="itembox">
         <tr>
         <td>
@@ -109,9 +137,16 @@
         </tr>
         </table>
         </itembox>
-        <button type="button" onclick="rollStats()">Roll</button>
+        </div>
+        <div class="rightContainer">
+        <div class="resultContainer">
         <div class = "results" id="divineCount">Good</div>
         <div class = "results" id="roll-result">Luck</div>
         <div class = "results" id="runningTen"> Exile </div>
+        </div>
+        <button type="button" class="roll" onclick="rollStats()">Roll</button>
+        <button type="button" class="showBest" onclick="showBest()">Show Best</button>
+        </div>
+        </div>
     </body>
 </html>
