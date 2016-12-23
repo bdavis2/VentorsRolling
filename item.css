@@ -1,6 +1,6 @@
 
-table.itembox{margin:0;color:#AB9066;font-family:Fontin SmallCaps;background:#222319;font-weight:normal;margin-left: auto;
-  margin-right: auto;border-style: solid;border-width: 3px;border-color: #af6025;}
+table.itembox{ margin:0;font-family:Fontin SmallCaps;background:#090a0a;font-weight:normal;margin-left: auto;
+  margin-right: auto;border-style: solid;border-width: 1px;border-color: #af6025;}
 .ItemContainer{position:relative;margin-bottom:20px;font-size:70%;font-weight:normal;}
 .ItemBox{text-align:center;color:#EFEFEF;font-size:1.3em;background:url('hoverbackground.png');}
 .ItemContent{padding-left:11px;padding-right:11px;padding-bottom:7px;}
@@ -22,13 +22,36 @@ table.itembox{margin:0;color:#AB9066;font-family:Fontin SmallCaps;background:#22
 .LightningDamage{color:gold}
 .ChaosDamage{color:#d02090}
 
-
+button{
+    display:block;
+    background-color: black;
+    color: #af6025;
+    width: 419;
+    height: 50px;
+    font-size: 20;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #af6025;
+}
 
 @font-face {
     font-family: 'Fontin SmallCaps'; /*a name to be used later*/
     src: url('Fontin.ttf'); /*URL to font*/
 }
 
+div.results{
+    color:#af6025;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 400px;
+    text-align: center;
+    font-size: 20;
+    margin-top: 20;
+    
+    
+}
 body{
-    background-color: black;
+    background-color: #1b1b1c;
 }

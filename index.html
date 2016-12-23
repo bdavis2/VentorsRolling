@@ -1,3 +1,61 @@
+<script type="text/javascript">
+    var descriptionText = ["% increased rarity of items found", 
+                          " to maximum Life",
+                          "% increased Quantity of Items found",
+                          "% increased Rarity of Items found",
+                          "% to Fire Resistance", 
+                          "% to Cold Resistance",
+                          "% to Lightning Resistance"];
+    
+    var ranges = [[6,15], [0,60], [-10, 10], [-40, 40], [-25, 50],[-25, 50], [-25, 50] ];
+    
+    var count = 0;
+    var resultResults = [];
+    
+    var textID = ["implicitRoll", "lifeRoll","quantityRoll","rarityRoll", "fireRoll", "coldRoll", "lightRoll"];
+    
+    function rollStats(){
+        count++;
+        var result = [];
+        document.getElementById("divineCount").innerHTML= count + " Divine Orbs used.";
+        for(i = 0; i < descriptionText.length; i++){
+            var roll = Math.floor((Math.random() * (ranges[i][1] - ranges[i][0])) + 1 + ranges[i][0]);
+            
+            result.push((roll - ranges[i][0]) / (ranges[i][1] - ranges[i][0]));
+            document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+        }
+        var total = 0;
+        for(j = 0; j < result.length; j++){
+            total += result[j];
+        }
+        document.getElementById("roll-result").innerHTML = Math.round(((total / textID.length)* 100)) + "% maxed.";
+        
+        resultResults.unshift(Math.round(((total / textID.length)* 100)));
+        if(resultResults.length > 3){
+            resultResults.pop();
+        }
+        
+        var total = 0;
+        for(x = 0; x < resultResults.length; x++){
+            total += resultResults[x];
+        }
+        var resultText = "";
+        if(total/resultResults.length < 50){
+            if(total/resultResults.length < 47.5){
+                resultText = "Really Bad Luck recently.";
+            }else{
+                resultText = "Bad Luck recently.";
+            }
+        }else{
+            if(total/resultResults.length < 52.5){
+                resultText = "Really Good Luck recently.";
+            }else{
+                resultText = "Good Luck recently.";
+            }
+        }
+        document.getElementById("runningTen").innerHTML = resultText;
+    }
+</script>
 <html>
     <head>
     <title>Make your own Unique</title>
@@ -26,22 +84,24 @@
         <span class="text">Requires Level <span class="Default">65</span>
         </div>
         <div class="ItemSeparator"></div>
-        <div class="ImplicitMod">
+        <div class="ImplicitMod" id = "implicitRoll">
         <span>(6-15)% increased rarity of items found</span>
         </div>
         <div class="ItemSeparator"></div>
         <div class="ExplicitMod">
-        <span>+(0-60) to maximum Life<br />
-        (-10-10)% increased Quantity of Items found<br />
-        (-40-40)% increased Rarity of Items found<br />
-       +(-25-50)% to Fire Resistance<br />
-       +(-25-50)% to Cold Resistance<br />
-        +(-25-50)% to Lightning Resistance<br /></span>
+        <span>
+        <div id="lifeRoll">+(0-60) to maximum Life</div>
+        <div id="quantityRoll">(-10-10)% increased Quantity of Items found</div>
+        <div id="rarityRoll">(-40-40)% increased Rarity of Items found</div>
+        <div id="fireRoll">+(-25-50)% to Fire Resistance</div>
+        <div id="coldRoll">+(-25-50)% to Cold Resistance</div>
+        <div id="lightRoll">+(-25-50)% to Lightning Resistance</div></span>
         </div>
         <div class="ItemSeparator"></div>
         <div class="FlavourText">
         <span>In a blaze of glory,<br />An anomaly defying all odds<br />The "unkillable" beast met the divine<br />And Ventor met his latest trophy.</span>
-        </div>
+        </div><br/>
+        <img src="ventor.png">
         </div>
         </div>
         </div>
@@ -49,6 +109,9 @@
         </tr>
         </table>
         </itembox>
-        
+        <button type="button" onclick="rollStats()">Roll</button>
+        <div class = "results" id="divineCount">awdawd</div>
+        <div class = "results" id="roll-result">awdawd</div>
+        <div class = "results" id="runningTen"> Last Few rolls </div>
     </body>
 </html>
