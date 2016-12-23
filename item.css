@@ -1,0 +1,34 @@
+
+table.itembox{margin:0;color:#AB9066;font-family:Fontin SmallCaps;background:#222319;font-weight:normal;margin-left: auto;
+  margin-right: auto;border-style: solid;border-width: 3px;border-color: #af6025;}
+.ItemContainer{position:relative;margin-bottom:20px;font-size:70%;font-weight:normal;}
+.ItemBox{text-align:center;color:#EFEFEF;font-size:1.3em;background:url('hoverbackground.png');}
+.ItemContent{padding-left:11px;padding-right:11px;padding-bottom:7px;}
+.TitleBar{background:top left repeat-x;position:relative;background-image:url('uitemheadermiddle.png');height:53px;}
+.TitleBarL {background:url('uitemheaderleft.png') no-repeat top left;height:53px;width:43px;left:-11px;position:absolute;}
+.TitleBarR{background-image:url('uitemheaderright.png');height:53px;width:43px;right:-11px;position:absolute;}
+.ItemName, .ItemType{font-size:18px;position:relative;top:2px;}
+.ItemSeparator{background:center no-repeat;position:relative;background-image:url('useparator.png');height:7.91075px;margin:1px 0px;}
+.ExplicitMod,.ImplicitMod{color:#8888FF;white-space:nowrap}
+.TextUnique,.FlavourText{color:#af6025}
+.FlavourText{font-style:italic;padding-left:5px; padding-right:5px;white-space:nowrap;}
+.Text{display:inline-block;padding:0 10px;color:#777;}	
+.Default{color:#fff}
+.Augmented{color:#88f}
+.Unmet{color:#d20000}
+.PhysicalDamage{color:#fff}
+.FireDamage{color:#960000}
+.ColdDamage{color:#366492}
+.LightningDamage{color:gold}
+.ChaosDamage{color:#d02090}
+
+
+
+@font-face {
+    font-family: 'Fontin SmallCaps'; /*a name to be used later*/
+    src: url('Fontin.ttf'); /*URL to font*/
+}
+
+body{
+    background-color: black;
+}
