@@ -32,19 +32,24 @@
         }
     }
     
+    
+    
     function rollStats(){
         count++;
         var result = [];
+        var rolls = [];
         document.getElementById("divineCount").innerHTML= count + " Divine Orbs used.";
         for(i = 0; i < descriptionText.length; i++){
             //var roll = Math.floor((Math.random() * (ranges[i][1] + 1 - ranges[i][0]))  + ranges[i][0]);
-            var roll = Math.floor(Math.random() * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
+            var percentage = Math.random();
+            var roll = Math.floor(percentage * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
             result.push(roll);
+            rolls.push(percentage);
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
         }
         var total = 0;
-        for(j = 0; j < result.length; j++){
-            total += result[j];
+        for(j = 0; j < rolls.length; j++){
+            total += rolls[j];
         }
         var rollResult = Math.round(((total / textID.length)* 100));
         if(rollResult > best){
