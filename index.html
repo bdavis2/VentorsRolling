@@ -1,39 +1,30 @@
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-89417797-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 <script type="text/javascript">
-    var descriptionText = ["% increased rarity of items found", 
+    var descriptionText = ["% increased rarity of items found",
                           " to maximum Life",
                           "% increased Quantity of Items found",
                           "% increased Rarity of Items found",
-                          "% to Fire Resistance", 
+                          "% to Fire Resistance",
                           "% to Cold Resistance",
                           "% to Lightning Resistance"];
-    
+
     var ranges = [[6,15], [0,60], [-10, 10], [-40, 40], [-25, 50],[-25, 50], [-25, 50] ];
-    
+
     var best = 0;
     var foundAt = 0;
     var bestStats = [];
-    
+
     var count = 0;
     var resultResults = [];
-    
+
     var textID = ["implicitRoll", "lifeRoll","quantityRoll","rarityRoll", "fireRoll", "coldRoll", "lightRoll"];
-    
+
     function showBest(){
         if(bestStats.length > 1){
             for(i = 0; i < descriptionText.length; i++){
             var roll = bestStats[i];
             //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
-            
+
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
             }
             document.getElementById("divineCount").innerHTML= "Rolled at " + foundAt + " Divine Orbs.";
@@ -41,9 +32,9 @@
             document.getElementById("runningTen").innerHTML = "";
         }
     }
-    
-    
-    
+
+
+
     function rollStats(){
         count++;
         var result = [];
@@ -66,17 +57,17 @@
             best = rollResult;
             bestStats = result;
             foundAt = count;
-            
+
         }
         document.getElementById("roll-result").innerHTML = rollResult  + "% maxed.";
-        
-        
+
+
         //Overall Data
         resultResults.unshift(Math.floor(((total / textID.length)* 100)));
         if(resultResults.length > 3){
             resultResults.pop();
         }
-        
+
         var total = 0;
         for(x = 0; x < resultResults.length; x++){
             total += resultResults[x];
@@ -119,10 +110,10 @@
         <div class="TitleBarR"></div>
         <div class="TextUnique">
         <span class="ItemName">Ventor's Gamble</span>
-        </div>	
+        </div>
         <div class="TextUnique">
         <span class="ItemType">Gold Ring</span>
-        </div>	
+        </div>
         </div>
         <div class="Requirements"><br/>
         <span class="text">Requires Level <span class="Default">65</span>
