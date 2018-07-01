@@ -7,8 +7,8 @@
     document.getElementById("runningTen").innerHTML = "Exile";
   }
     var descriptionText = [" to maximum Life",
-                          "% increased Quantity of Items found",
-                          "% increased Rarity of Items found",
+                          "Quantity of Items found",
+                          "Rarity of Items found",
                           "% to Fire Resistance",
                           "% to Cold Resistance",
                           "% to Lightning Resistance"];
@@ -32,10 +32,26 @@
     function showBest(){
         if(bestStats.length > 1){
             for(i = 0; i < descriptionText.length; i++){
-            var roll = bestStats[i];
-            //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
-
-            document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+              var x = document.getElementById(textID[i]);
+              var roll = bestStats[i];
+              //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
+              if(x.classList.contains("hide")){
+                x.classList.remove("hide");
+              }
+              if(roll == 0){
+                x.classList.add("hide");
+              }
+              if(descriptionText[i].search("Quantity") + 1 || descriptionText[i].search("Rarity") + 1){
+                if(roll < 0){
+                  document.getElementById(textID[i]).innerHTML= roll + "% reduced " + descriptionText[i];
+                }
+                else if(roll > 0){
+                    document.getElementById(textID[i]).innerHTML= roll + "% increased " + descriptionText[i];
+                }
+              }
+              else{
+                document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+              }
             }
             document.getElementById("divineCount").innerHTML= "Rolled at " + foundAt[0] + " Divine Orbs and " + foundAt[1] + " Blessed Orbs.";
             document.getElementById("roll-result").innerHTML = best  + "% maxed.";
@@ -51,12 +67,30 @@
         var rolls = [];
         document.getElementById("divineCount").innerHTML= "1 Scroll of Wisdom, " + divine_count + " Divine Orbs, and " + blessed_count + " Blessed Orbs used.";
         for(i = 0; i < descriptionText.length; i++){
+          var x = document.getElementById(textID[i]);
             //var roll = Math.floor((Math.random() * (ranges[i][1] + 1 - ranges[i][0]))  + ranges[i][0]);
             var percentage = Math.random();
             var roll = Math.floor(percentage * (ranges[i][1] - ranges[i][0] + 1) + ranges[i][0]);
             result.push(roll);
             rolls.push(percentage);
-            document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+              //var roll = Math.floor((bestStats[i] * (ranges[i][1] + 1  - ranges[i][0])) + ranges[i][0]);
+              if(x.classList.contains("hide")){
+                x.classList.remove("hide");
+              }
+              if(roll == 0){
+                x.classList.add("hide");
+              }
+              if(descriptionText[i].search("Quantity") + 1 || descriptionText[i].search("Rarity") + 1){
+                if(roll < 0){
+                  document.getElementById(textID[i]).innerHTML= roll + "% reduced " + descriptionText[i];
+                }
+                else if(roll > 0){
+                    document.getElementById(textID[i]).innerHTML= roll + "% increased " + descriptionText[i];
+                }
+              }
+              else{
+                document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
+              }
         }
         total = 0;
         for(j = 0; j < rolls.length; j++){
@@ -114,7 +148,6 @@
         percentage = Math.random();
         roll = Math.floor(percentage * (blessedRange[1] - blessedRange[0] + 1) + blessedRange[0]);
       }
-
       document.getElementById(blessedID).innerHTML = roll + "% increased rarity of items found";
 
       if(total > best){
