@@ -2,17 +2,17 @@
 table.itembox{ margin:0;font-family:Fontin SmallCaps;background:#090a0a;font-weight:normal;margin-left: auto;
   margin-right: auto;border-style: solid;border-width: 1px;border-color: #af6025;}
 .ItemContainer{position:relative;margin-bottom:20px;font-size:70%;font-weight:normal;}
-.ItemBox{text-align:center;color:#EFEFEF;font-size:1.3em;background:url('hoverbackground.png');}
+.ItemBox{text-align:center;color:#EFEFEF;font-size:1.3em;}
 .ItemContent{padding-left:11px;padding-right:11px;padding-bottom:7px;}
 .TitleBar{background:top left repeat-x;position:relative;background-image:url('uitemheadermiddle.png');height:53px;}
 .TitleBarL {background:url('uitemheaderleft.png') no-repeat top left;height:53px;width:43px;left:-11px;position:absolute;}
 .TitleBarR{background-image:url('uitemheaderright.png');height:53px;width:43px;right:-11px;position:absolute;}
-.ItemName, .ItemType{font-size:18px;position:relative;top:2px;}
+#ItemName, .ItemType{font-size:18px;position:relative;top:2px;}
 .ItemSeparator{background:center no-repeat;position:relative;background-image:url('useparator.png');height:7.91075px;margin:1px 0px;}
 .ExplicitMod,.ImplicitMod{color:#8888FF;white-space:nowrap}
-.TextUnique,.FlavourText{color:#af6025}
-.FlavourText{font-style:italic;padding-left:5px; padding-right:5px;white-space:nowrap;}
-.Text{display:inline-block;padding:0 10px;color:#777;}	
+.TextUnique,#FlavourText{color:#af6025}
+#FlavourText{font-style:italic;padding-left:5px; padding-right:5px;white-space:nowrap;}
+.Text{display:inline-block;padding:0 10px;color:#777;}
 .Default{color:#fff}
 .Augmented{color:#88f}
 .Unmet{color:#d20000}
@@ -21,6 +21,9 @@ table.itembox{ margin:0;font-family:Fontin SmallCaps;background:#090a0a;font-wei
 .ColdDamage{color:#366492}
 .LightningDamage{color:gold}
 .ChaosDamage{color:#d02090}
+.hide{display:none}
+#unided{color:#d20000}
+
 
 button{
     display:block;
@@ -32,13 +35,21 @@ button{
     border-color: #af6025;
 }
 
-button.roll{
+button#roll{
     position: absolute;
     bottom: 55;
 }
-button.showBest{
+button#bless{
+  position: absolute;
+  bottom: 110;
+}
+button#showBest{
     position:absolute;
     bottom: 0;
+}
+button#id{
+  position: absolute;
+  bottom: 0;
 }
 
 @font-face {
@@ -56,6 +67,12 @@ div.results{
     font-size: 20;
     margin-top: 20;
 }
+div.resultContainer{
+  background-color:#1b1b1c;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
 
 
 div.item{
@@ -76,5 +93,7 @@ div.container{
      transform: translateX(-50%);
 }
 body{
+    background-image: url("bkrnd.jpg");
+    background-repeat: no-repeat;
     background-color: #1b1b1c;
 }

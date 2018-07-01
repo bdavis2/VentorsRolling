@@ -1,23 +1,33 @@
 
 <script type="text/javascript">
-    var descriptionText = ["% increased rarity of items found",
-                          " to maximum Life",
+  window.onload = function(){
+    useBlessed();
+    document.getElementById("divineCount").innerHTML = "Good";
+    document.getElementById("roll-result").innerHTML = "Luck";
+    document.getElementById("runningTen").innerHTML = "Exile";
+  }
+    var descriptionText = [" to maximum Life",
                           "% increased Quantity of Items found",
                           "% increased Rarity of Items found",
                           "% to Fire Resistance",
                           "% to Cold Resistance",
                           "% to Lightning Resistance"];
 
-    var ranges = [[6,15], [0,60], [-10, 10], [-40, 40], [-25, 50],[-25, 50], [-25, 50] ];
+    var ranges = [[0,60], [-10, 10], [-40, 40], [-25, 50],[-25, 50], [-25, 50] ];
+    var blessedRange = [6,15];
 
     var best = 0;
-    var foundAt = 0;
+    var foundAt = [0, 0];
     var bestStats = [];
 
-    var count = 0;
+    var divine_count = -1;
+    var blessed_count = -1;
     var resultResults = [];
+    var total = 0;
+    var currentImplicit = 0;
 
-    var textID = ["implicitRoll", "lifeRoll","quantityRoll","rarityRoll", "fireRoll", "coldRoll", "lightRoll"];
+    var textID = ["lifeRoll","quantityRoll","rarityRoll", "fireRoll", "coldRoll", "lightRoll"];
+    var blessedID = "implicitRoll";
 
     function showBest(){
         if(bestStats.length > 1){
@@ -27,7 +37,7 @@
 
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
             }
-            document.getElementById("divineCount").innerHTML= "Rolled at " + foundAt + " Divine Orbs.";
+            document.getElementById("divineCount").innerHTML= "Rolled at " + foundAt[0] + " Divine Orbs and " + foundAt[1] + " Blessed Orbs.";
             document.getElementById("roll-result").innerHTML = best  + "% maxed.";
             document.getElementById("runningTen").innerHTML = "";
         }
@@ -36,10 +46,10 @@
 
 
     function rollStats(){
-        count++;
+        divine_count++;
         var result = [];
         var rolls = [];
-        document.getElementById("divineCount").innerHTML= count + " Divine Orbs used.";
+        document.getElementById("divineCount").innerHTML= "1 Scroll of Wisdom, " + divine_count + " Divine Orbs, and " + blessed_count + " Blessed Orbs used.";
         for(i = 0; i < descriptionText.length; i++){
             //var roll = Math.floor((Math.random() * (ranges[i][1] + 1 - ranges[i][0]))  + ranges[i][0]);
             var percentage = Math.random();
@@ -48,30 +58,29 @@
             rolls.push(percentage);
             document.getElementById(textID[i]).innerHTML= roll + descriptionText[i];
         }
-        var total = 0;
+        total = 0;
         for(j = 0; j < rolls.length; j++){
             total += rolls[j];
         }
-        var rollResult = Math.round(((total / textID.length)* 100));
+        if(currentImplicit){
+          total += currentImplicit;
+          var rollResult = Math.round(((total / (textID.length + 1))* 100));
+
+        }
+        else{
+          var rollResult = Math.round(((total / (textID.length))* 100));
+        }
         if(rollResult > best){
             best = rollResult;
             bestStats = result;
-            foundAt = count;
+            foundAt = [divine_count, blessed_count];
 
         }
         document.getElementById("roll-result").innerHTML = rollResult  + "% maxed.";
 
 
         //Overall Data
-        resultResults.unshift(Math.floor(((total / textID.length)* 100)));
-        if(resultResults.length > 3){
-            resultResults.pop();
-        }
 
-        var total = 0;
-        for(x = 0; x < resultResults.length; x++){
-            total += resultResults[x];
-        }
         var resultText = "";
         if(total/resultResults.length < 50){
             if(total/resultResults.length < 47.5){
@@ -87,6 +96,75 @@
             }
         }
         document.getElementById("runningTen").innerHTML = resultText;
+    }
+    function useBlessed(){
+      blessed_count++;
+
+      var percentage = Math.random();
+
+      var roll = Math.floor(percentage * (blessedRange[1] - blessedRange[0] + 1) + blessedRange[0]);
+
+      if(currentImplicit){
+        total -= (currentImplicit);
+      }
+
+      document.getElementById("divineCount").innerHTML= "1 Scroll of Wisdom, " + divine_count + " Divine Orbs, and " + blessed_count + " Blessed Orbs used.";
+
+      while(roll == currentImplicit){
+        percentage = Math.random();
+        roll = Math.floor(percentage * (blessedRange[1] - blessedRange[0] + 1) + blessedRange[0]);
+      }
+
+      document.getElementById(blessedID).innerHTML = roll + "% increased rarity of items found";
+
+      if(total > best){
+        best = total;
+        foundAt = [divine_count, blessed_count];
+      }
+      total += percentage;
+      var rollResult = Math.round(((total / (textID.length + 1))* 100));
+      document.getElementById("roll-result").innerHTML = rollResult  + "% maxed.";
+      var resultText = "";
+      if(percentage < 50){
+          if(percentage < 47.5){
+              resultText = "Really Bad Luck recently.";
+          }else{
+              resultText = "Bad Luck recently.";
+          }
+      }else{
+          if(percentage < 52.5){
+              resultText = "Really Good Luck recently.";
+          }else{
+              resultText = "Good Luck recently.";
+          }
+      }
+      document.getElementById("runningTen").innerHTML = resultText;
+      currentImplicit = percentage;
+
+    }
+
+    function getImplicit(){
+      var implicit = 0
+      var re = /\d/gm;
+      var vals = document.getElementById(blessedID).innerHTML.match(re);
+      if(vals.length == 2){
+        implicit += vals[0]*10;
+        implicit += vals[1];
+      }
+      else{
+        implicit = vals[0];
+      }
+      return implicit;
+    }
+    function identify(){
+      rollStats();
+      var x = document.getElementsByClassName("hide");
+      while(x.length != 0){
+        console.log(x[i]);
+        x[0].classList.remove("hide");
+      }
+      document.getElementById("unided").classList.add("hide")
+      document.getElementById("id").classList.add("hide")
     }
 </script>
 <html>
@@ -109,13 +187,13 @@
         <div class="TitleBarL"></div>
         <div class="TitleBarR"></div>
         <div class="TextUnique">
-        <span class="ItemName">Ventor's Gamble</span>
+        <span id="ItemName"class="hide">Ventor's Gamble</span>
         </div>
         <div class="TextUnique">
         <span class="ItemType">Gold Ring</span>
         </div>
         </div>
-        <div class="Requirements"><br/>
+        <div id="Requirements" class="hide"><br/>
         <span class="text">Requires Level <span class="Default">65</span>
         </div>
         <div class="ItemSeparator"></div>
@@ -125,15 +203,16 @@
         <div class="ItemSeparator"></div>
         <div class="ExplicitMod">
         <span>
-        <div id="lifeRoll">+(0-60) to maximum Life</div>
-        <div id="quantityRoll">(-10-10)% increased Quantity of Items found</div>
-        <div id="rarityRoll">(-40-40)% increased Rarity of Items found</div>
-        <div id="fireRoll">+(-25-50)% to Fire Resistance</div>
-        <div id="coldRoll">+(-25-50)% to Cold Resistance</div>
-        <div id="lightRoll">+(-25-50)% to Lightning Resistance</div></span>
+        <div id="unided"> Unidentified</div>
+        <div id="lifeRoll" class = "hide">+(0-60) to maximum Life</div>
+        <div id="quantityRoll" class = "hide">(-10-10)% increased Quantity of Items found</div>
+        <div id="rarityRoll" class = "hide">(-40-40)% increased Rarity of Items found</div>
+        <div id="fireRoll" class = "hide">+(-25-50)% to Fire Resistance</div>
+        <div id="coldRoll" class = "hide">+(-25-50)% to Cold Resistance</div>
+        <div id="lightRoll" class = "hide">+(-25-50)% to Lightning Resistance</div></span>
         </div>
         <div class="ItemSeparator"></div>
-        <div class="FlavourText">
+        <div id = "FlavourText" class="hide">
         <span>In a blaze of glory,<br />An anomaly defying all odds<br />The "unkillable" beast met the divine<br />And Ventor met his latest trophy.</span>
         </div><br/>
         <img src="ventor.png">
@@ -150,9 +229,13 @@
         <div class = "results" id="divineCount">Good</div>
         <div class = "results" id="roll-result">Luck</div>
         <div class = "results" id="runningTen"> Exile </div>
+        <br>
+        <br>
         </div>
-        <button type="button" class="roll" onclick="rollStats()">Divine</button>
-        <button type="button" class="showBest" onclick="showBest()">Show Best</button>
+          <button type="button" id="roll" class="hide" onclick="rollStats()">Divine</button>
+          <button type="button" id="bless" class="hide" onclick="useBlessed()">Bless</button>
+          <button type="button" id="showBest" class="hide" onclick="showBest()">Show Best</button>
+          <button type="button" id="id" onclick="identify()">Use Scroll of Wisdom</button>
         </div>
         </div>
     </body>
